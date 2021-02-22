@@ -39,35 +39,39 @@ const AllNotes = (props) => {
           isdescriptionOpen={isdescriptionOpen}
         />
       )}
-      <ul>
-        {props.notes.map((note) => (
-          <li key={note.id}>
-            <span
-              className="list-icon"
-              onClick={(e) => editHandler(e, note)}
-              title="Click to edit note"
-            >
-              <i className="fas fa-check"></i>
-            </span>
-            <span
-              className="title"
-              title="Click to view description"
-              onClick={() => descriptionHandler(note)}
-            >
-              {note.title}
-            </span>
-            <span
-              className="edit-btn"
-              onClick={(e) => editHandler(e, note)}
-              title="Click to edit note"
-            >
-              <i className="fas fa-pencil-alt"></i>
-            </span>
-            <br />
-            <p id="date-txt"> {note.date}</p>
-          </li>
-        ))}
-      </ul>
+      {props.notes.length === 0 ? (
+        <div style={{textAlign: "center"}}>No pending notes</div>
+      ) : (
+        <ul>
+          {props.notes.map((note) => (
+            <li key={note.id}>
+              <span
+                className="list-icon"
+                onClick={(e) => editHandler(e, note)}
+                title="Click to edit note"
+              >
+                <i className="fas fa-check"></i>
+              </span>
+              <span
+                className="title"
+                title="Click to view description"
+                onClick={() => descriptionHandler(note)}
+              >
+                {note.title}
+              </span>
+              <span
+                className="edit-btn"
+                onClick={(e) => editHandler(e, note)}
+                title="Click to edit note"
+              >
+                <i className="fas fa-pencil-alt"></i>
+              </span>
+              <br />
+              <p id="date-txt"> {note.date}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

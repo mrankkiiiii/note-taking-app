@@ -8,11 +8,11 @@ const notes = (state = initialState, action) => {
       return {
         ...state,
         data: [
-          ...state.data,
           {
             ...action.data,
             id: action.id,
           },
+          ...state.data,
         ],
       };
     case "DELETE_NOTE":
@@ -22,7 +22,14 @@ const notes = (state = initialState, action) => {
         data: newData,
       };
     case "EDIT_NOTE":
-      return {};
+      state.data.map((note) => {
+        if (note.id === action.data.id) {
+          note.title = action.data.title;
+          note.description = action.data.description;
+          note.date = action.data.date;
+        }
+      });
+      return state;
     default:
       return state;
   }

@@ -1,36 +1,38 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { addNote } from "../actions/index";
+import { deleteNote, editNote } from "../actions/index";
 import { Button, Modal, Form } from "react-bootstrap";
 
-const AddNoteModel = (props) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [date, setDate] = useState("");
+const EditNoteModel = (props) => {
+  const [title, setTitle] = useState(props.note.title);
+  const [description, setDescription] = useState(props.note.description);
+  const [date, setDate] = useState(props.note.date);
+  const [noteID, setNoteID] = useState(props.note.id);
   const submitHandler = (event) => {
     event.preventDefault();
     let obj = {
-      //   title: event.target.title.value,
-      //   description: event.target.description.value,
-      //   date: event.target.date.value,
       title,
       description,
       date,
+      id: noteID,
     };
-    props.dispatch(addNote(obj));
-    // event.target.title.value = "";
-    // event.target.description.value = "";
-    // event.target.date.value = "";
+    props.dispatch(editNote(obj));
     props.handleClose();
     setTitle("");
     setDescription("");
     setDate("");
   };
+
+  const deleteHandler = (event) => {
+    event.preventDefault();
+    props.dispatch(deleteNote(noteID));
+    props.handleClose();
+  };
   return (
     <div>
-      <Modal show={props.isaddModelOpen} onHide={props.handleClose}>
+      <Modal show={props.isEditModalOpen} onHide={props.handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Note</Modal.Title>
+          <Modal.Title>Edit Note</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -43,7 +45,6 @@ const AddNoteModel = (props) => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Enter title"
-                required
               />
             </Form.Group>
             <Form.Group>
@@ -55,7 +56,6 @@ const AddNoteModel = (props) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Enter Description"
-                required
               />
             </Form.Group>
             <Form.Group>
@@ -66,28 +66,28 @@ const AddNoteModel = (props) => {
                 onChange={(e) => setDate(e.target.value)}
                 name="date"
                 type="date"
-                required
               />
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
+          <Button variant="danger" onClick={deleteHandler}>
+            <i className="fas fa-trash-alt"></i>
+            Delete
+          </Button>
           <Button variant="secondary" onClick={props.handleClose}>
             Close
           </Button>
           <Button variant="primary" onClick={(event) => submitHandler(event)}>
-            Save
+            Save Changes
           </Button>
         </Modal.Footer>
       </Modal>
-      {/* <form onSubmit={(event) => submitHandler(props, event)}>
-        <input type="text" placeholder="title" name="title" />
-        <input type="text" placeholder="description" name="description" />
-        <input type="date" name="date" />
-        <button>Submit</button>
-      </form> */}
     </div>
   );
 };
 
-export default connect()(AddNoteModel);
+const mapStateToProps = (state) => ({
+  notes: state.notes.data,
+});
+export default connect(mapStateToProps)(EditNoteModel);

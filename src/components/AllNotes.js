@@ -1,16 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { deleteNote } from "../actions/index";
+import { Button } from "react-bootstrap";
+import EditNoteModel from "./EditNoteModel";
 const AllNotes = (props) => {
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [note, setNote] = useState();
+  const handleClose = () => setIsEditModalOpen(false);
+  const handleShow = () => setIsEditModalOpen(true);
+
+  const editHandler = (e, note) => {
+    e.preventDefault();
+    setNote(note);
+    setIsEditModalOpen(!isEditModalOpen);
+  };
   return (
     <div>
+      {isEditModalOpen && (
+        <EditNoteModel
+          handleClose={handleClose}
+          handleShow={handleShow}
+          note={note}
+          isEditModalOpen={isEditModalOpen}
+        />
+      )}
       <ul>
         {props.notes.map((note, index) => (
           <li key={note.id}>
             {note.title}
             {note.description}
             {note.date}
-            <button onClick={()=> props.dispatch(deleteNote(note.id))}>delete</button>
+            <Button onClick={(e) => editHandler(e, note)}>
+              <i className="fas fa-pencil-alt"></i>
+            </Button>
           </li>
         ))}
       </ul>

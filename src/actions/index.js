@@ -1,3 +1,4 @@
+import { v4 } from "uuid";
 const ADD_NOTE = "ADD_NOTE";
 const DELETE_NOTE = "DELETE_NOTE";
 const EDIT_NOTE = "EDIT_NOTE";
@@ -5,7 +6,7 @@ const EDIT_NOTE = "EDIT_NOTE";
 export const addNote = (data) => ({
   type: ADD_NOTE,
   data,
-  id: Math.random(),
+  id: v4(),
 });
 
 export const deleteNote = (id) => ({

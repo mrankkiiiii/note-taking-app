@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { addNote } from "../actions/index";
 import { Button, Modal, Form } from "react-bootstrap";
-
 const AddNoteModel = (props) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    if (!!title && !!description && !!date) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [title, description, date]);
   const submitHandler = (event) => {
     event.preventDefault();
     let obj = {
@@ -69,7 +77,11 @@ const AddNoteModel = (props) => {
           <Button variant="secondary" onClick={props.handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={(event) => submitHandler(event)}>
+          <Button
+            disabled={disabled}
+            variant="primary"
+            onClick={(event) => submitHandler(event)}
+          >
             Save
           </Button>
         </Modal.Footer>

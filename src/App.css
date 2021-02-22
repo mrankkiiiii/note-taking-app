@@ -1,14 +1,118 @@
-.App {
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+body {
+  background-color: black;
+}
+.main-app {
   height: 100vh;
+}
+.main-app h1 {
+  color: white;
+  text-align: center;
+  font-weight: 700;
+  padding: 10px;
+}
+.App {
   display: flex;
-  align-items: center;
+  font-size: 2.2rem;
 }
 .App .left {
   display: flex;
+  flex-direction: column;
+  text-align: center;
   width: 50%;
+  max-height: 100vh;
   justify-content: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
 }
+.App .left #add-btn {
+  cursor: pointer;
+  font-size: 2.5rem;
+  color: green;
+  transition: all 0.5s;
+}
+
+.App .left #add-btn:hover {
+  color: darkcyan;
+}
+.App .left #add-btn-txt {
+  font-weight: 500;
+}
+
 .App .right {
+  background-color: rgba(255, 255, 255, 0.2);
+  height: 100%;
+  color: white;
+  overflow-wrap: break-word;
+  /* overflow-y: scroll; */
   width: 50%;
-  float: right;
+}
+.App ul {
+  margin-bottom: 0;
+}
+
+.App ul li {
+  cursor: pointer;
+  padding-left: 20px;
+  transition: all 0.5s;
+  list-style-type: none;
+}
+.App ul li:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.App ul li #date-txt {
+  font-size: 1rem;
+  padding-right: 20px;
+  text-align: right;
+}
+
+.App ul li .list-icon {
+  color: rgb(64, 216, 76);
+  padding-right: 10px;
+  font-size: 1.5rem;
+}
+.App ul li .title {
+  /* text-align: center; */
+}
+.App ul li .edit-btn {
+  color: maroon;
+  padding-left: 10px;
+  font-size: 1.5rem;
+}
+#delete-btn i {
+  padding-right: 10px;
+}
+@media only screen and (max-width: 522px) {
+  .App {
+    flex-direction: column;
+  }
+  .App .left {
+    width: 100%;
+    height: 30%;
+    min-width: 100px;
+    margin-bottom: 10px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  .App .right {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .App {
+    flex-direction: column;
+  }
+  .App .left {
+    width: 100%;
+    height: 30%;
+    min-width: 100px;
+  }
+  .App .right {
+    width: 100%;
+    min-width: 100px;
+  }
 }

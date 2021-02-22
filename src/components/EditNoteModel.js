@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { deleteNote, editNote } from "../actions/index";
-import { Button, Modal, Form } from "react-bootstrap";
+import { Button, Modal, Form, Toast } from "react-bootstrap";
 
 const EditNoteModel = (props) => {
   const [title, setTitle] = useState(props.note.title);
@@ -16,11 +16,9 @@ const EditNoteModel = (props) => {
       date,
       id: noteID,
     };
+
     props.dispatch(editNote(obj));
     props.handleClose();
-    setTitle("");
-    setDescription("");
-    setDate("");
   };
 
   const deleteHandler = (event) => {
@@ -45,6 +43,7 @@ const EditNoteModel = (props) => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Enter title"
+                required
               />
             </Form.Group>
             <Form.Group>
@@ -56,6 +55,7 @@ const EditNoteModel = (props) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Enter Description"
+                required
               />
             </Form.Group>
             <Form.Group>
@@ -66,12 +66,13 @@ const EditNoteModel = (props) => {
                 onChange={(e) => setDate(e.target.value)}
                 name="date"
                 type="date"
+                required
               />
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={deleteHandler}>
+          <Button id="delete-btn" variant="danger" onClick={deleteHandler}>
             <i className="fas fa-trash-alt"></i>
             Delete
           </Button>

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Button } from "react-bootstrap";
 import EditNoteModel from "./EditNoteModel";
 import DescriptionModel from "./DescriptionModel";
 const AllNotes = (props) => {
@@ -43,11 +42,29 @@ const AllNotes = (props) => {
       <ul>
         {props.notes.map((note) => (
           <li key={note.id}>
-            <span onClick={() => descriptionHandler(note)}>{note.title}</span>
-            {note.date}
-            <Button onClick={(e) => editHandler(e, note)}>
+            <span
+              className="list-icon"
+              onClick={(e) => editHandler(e, note)}
+              title="Click to edit note"
+            >
+              <i className="fas fa-check"></i>
+            </span>
+            <span
+              className="title"
+              title="Click to view description"
+              onClick={() => descriptionHandler(note)}
+            >
+              {note.title}
+            </span>
+            <span
+              className="edit-btn"
+              onClick={(e) => editHandler(e, note)}
+              title="Click to edit note"
+            >
               <i className="fas fa-pencil-alt"></i>
-            </Button>
+            </span>
+            <br />
+            <p id="date-txt"> {note.date}</p>
           </li>
         ))}
       </ul>

@@ -1,10 +1,12 @@
-
-import './App.css';
+import "./App.css";
+import AddNotesModel from "./components/AddNoteModel";
+import AllNotes from "./components/AllNotes";
 
 function App() {
   return (
     <div className="App">
-     <h1>hello</h1>
+      <AddNotesModel />
+      <AllNotes />
     </div>
   );
 }
